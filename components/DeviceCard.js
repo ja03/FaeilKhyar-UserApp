@@ -5,12 +5,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
 import { ScrollView } from 'react-native'
 
-const DeviceCard = ({donation}) => {
+const DeviceCard = ({donation, showHospitalName}) => {
     return (
         <View style={styles.container}>
             <View style={styles.textContainer}>
                 <Text style={styles.text}>{donation.deviceType}</Text>
-                <Text style={styles.subLinkText}>{donation.donnerLocation}</Text>
+                {showHospitalName ?(
+                    <Text style={styles.subLinkText}>{donation.hospitalName}</Text>
+                ): (
+                    <>
+                    <Text style={styles.subLinkText}>{donation.donnerLocation}</Text>
+                    </>
+                ) }
             </View>
             <View style={styles.linkImg}>
                     <Image source={donation.deviceImg} style={{width:84, height:100}}/>       

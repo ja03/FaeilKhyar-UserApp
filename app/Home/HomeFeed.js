@@ -20,7 +20,8 @@ const HomeFeed = () => {
     condition:true,
     durationOfUse:'Two weeks',
     hospitalName:'مستفى الامير حمزة',
-    hospitalLocation:'عمان الدوار السابع'
+    hospitalLocation:'عمان الدوار السابع',
+    hospitalPhoneNumber: +962791049417
   },
   {
     id: 2,
@@ -31,7 +32,8 @@ const HomeFeed = () => {
     condition:true,
     durationOfUse:'Two weeks',
     hospitalName:'مستفى الامير حمزة',
-    hospitalLocation:'عمان الدوار السابع'
+    hospitalLocation:'عمان الدوار السابع',
+    hospitalPhoneNumber: +962791049417
   },
   {
     id: 3,
@@ -42,7 +44,8 @@ const HomeFeed = () => {
     condition:true,
     durationOfUse:'Two weeks',
     hospitalName:'مستفى الامير حمزة',
-    hospitalLocation:'عمان الدوار السابع'
+    hospitalLocation:'عمان الدوار السابع',
+    hospitalPhoneNumber: +962791049417
   },
   {
     id: 4,
@@ -53,7 +56,8 @@ const HomeFeed = () => {
     condition:true,
     durationOfUse:'Two weeks',
     hospitalName:'مستفى الامير حمزة',
-    hospitalLocation:'عمان الدوار السابع'
+    hospitalLocation:'عمان الدوار السابع',
+    hospitalPhoneNumber: +962791049417
   },
 ]
 
@@ -110,7 +114,23 @@ const HomeFeed = () => {
         showsHorizontalScrollIndicator={false}
         >
           {FeaturedDonations.map((donation) => (
-            <FeaturedCard key={donation.id} donation={donation} />
+            <View style={{marginRight:24, marginVertical:12 }}>
+              <Link 
+              style={{width:162, height:200}}
+              href={{
+                pathname:'/Home/Search/[SearchedDevice]',
+                params:{
+                  searchType: donation.deviceType,
+                  searchSize: donation.deviceSize,
+                  searchModel: donation.deviceModel,
+                  searchImg: donation.deviceImg,
+                  searchHospitalPhoneNumber: donation.hospitalPhoneNumber
+                }
+                }} 
+                >
+                <FeaturedCard key={donation.id} donation={donation} />
+              </Link>
+            </View>
           ))}
         </ScrollView>
         </ScrollView>

@@ -10,6 +10,7 @@ import { FlatList } from 'react-native'
 import DeviceCard from '../../../components/DeviceCard'
 
 const SearchFeed = () => {
+  // data from the backend
   const devices= [
     {
 			id:1,
@@ -24,7 +25,7 @@ const SearchFeed = () => {
     {
 			id:2,
 			deviceImg:require('../../../assets/imgs/device-img.png'),
-			deviceType:"كرسي متحرك",
+			deviceType:"عكازة",
 			deviceModel:"Very Fire",
 			deviceSize:"5xl",
 			deviceCondition:true,
@@ -34,7 +35,7 @@ const SearchFeed = () => {
     {
 			id:3,
 			deviceImg:require('../../../assets/imgs/device-img.png'),
-			deviceType:"كرسي متحرك",
+			deviceType:"سرير ",
 			deviceModel:"Very Fire",
 			deviceSize:"5xl",
 			deviceCondition:true,
@@ -54,16 +55,48 @@ const SearchFeed = () => {
   ]
   const [searchInput, setSearchInput] = useState('')
 
-  const handelDevices = (item)=>{
+  const handelDevices = ({item})=>{
+    // empty search input
     if(searchInput === ''){
       return(
-        <View> 
-            <DeviceCard donation={item}/>
+        <View style={{flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+          <Link href={{
+            pathname:'/Home/Search/[SearchedDevice]',
+            params:{
+              searchType: item.deviceType,
+              searchSize: item.deviceSize,
+              searchModel: item.deviceModel,
+              searchImg: item.deviceImg,
+              searchCondition:item.deviceCondition,
+              searchHospitalPhoneNumber: item.hospitalPhoneNumber
+            }
+          }} 
+          style={{marginVertical:12, height:128}}>
+            <DeviceCard donation={item} showHospitalName={true}/>
+          </Link> 
         </View>
       )
-    }else{
+    }
+    
+    // searching...
+    if(item.deviceType.toLowerCase().includes(searchInput.toLocaleLowerCase())){
       return(
-        <View>alksndalksndl</View>
+        <View style={{flexDirection:"column", alignItems:"center", justifyContent:"center"}}>
+          <Link href={{
+            pathname:'/Home/Search/[SearchedDevice]',
+            params:{
+              searchType: item.deviceType,
+              searchSize: item.deviceSize,
+              searchModel: item.deviceModel,
+              searchImg: item.searchImg,
+              searchCondition:item.deviceCondition,
+              searchHospitalPhoneNumber: item.hospitalPhoneNumber
+            }
+          }} 
+          style={{marginVertical:12, height:128}}>
+          <DeviceCard donation={item} showHospitalName={true}/>
+          </Link>
+        </View>
       )
     }
 
@@ -78,10 +111,13 @@ const SearchFeed = () => {
             value={searchInput} 
         />
         {/* Devices */}
-        <FlatList
-          data={devices}
-          renderItem={({item})=>{handelDevices(item)}}
-        />
+        <View>
+          <FlatList
+            data={devices}
+            renderItem={handelDevices}
+            keyExtractor={(item) => (item && item.id !== undefined ? item.id.toString() : 'defaultKey')}
+          />
+        </View>
     </SafeAreaView>
   )
 }
