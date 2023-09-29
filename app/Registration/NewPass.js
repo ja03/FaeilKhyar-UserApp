@@ -9,13 +9,14 @@ const NewPass = () => {
     //data to be sent to the backend is the new password
     const [newPass, setNewPass] = useState('')
     const [confirmPass,setConfirmPass]= useState('')
-    const [path, setPath] = useState('/Registration/NewPass')
+    const [showLink, setShowLink] = useState(false)
+    
 
     const checkPassword = (text, confimration)=>{
         // Check if the password meets the criteria
         if (text.length >= 8 && /[A-Z]/.test(text) && /^[A-Za-z_]+$/.test(text) && text=== confimration) {
             setNewPass(text);
-            setPath('/Registration/LogIn')
+            return(true)
         } else {
             Alert.alert(
             'Invalid Password',
@@ -25,7 +26,10 @@ const NewPass = () => {
     }
 
     const handelNewPass = ()=>{
-        checkPassword(newPass, confirmPass)
+        const checkNewUserPass = checkPassword(newPass, confirmPass)
+        if(checkNewUserPass){
+            setShowLink(true)
+        }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -55,9 +59,18 @@ const NewPass = () => {
                     value={confirmPass}
                 />
             </View>
-            <TouchableOpacity style={styles.btn} onPress={handelNewPass}>
-                <Link  href={path} style={styles.btnText}>تسجيل دخول</Link>
-            </TouchableOpacity>
+            {
+                showLink ? (
+                    <TouchableOpacity style={styles.btn} >
+                        <Link  href={'/Registration/LogIn'} style={styles.btnText}>تحديث كلمة المرور</Link>
+                    </TouchableOpacity>
+                ) : (<>
+                    <TouchableOpacity style={styles.btn} onPress={handelNewPass}>
+                        <Text style={styles.btnText}>تحديث كلمة المرور</Text>
+                    </TouchableOpacity>
+                
+                </>)
+            }
         </SafeAreaView>
     )
 }
