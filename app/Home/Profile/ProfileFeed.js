@@ -33,7 +33,7 @@ const jordanianGovernorates = [
     "karak",
     "tafilah",
     "ma'an",
-    "aqaba"
+    "aqaba",
 ];
 
 const ProfileFeed = () => {
@@ -56,11 +56,13 @@ const ProfileFeed = () => {
     const [editProfile, setEditProfile] = useState(false);
     const [newProfileData, setNewProfileData] = useState({});
 
+    const [isFocused, setIsFocused] = useState(false);
+
     const checkMedId = (text) => {
         //nine gigit number
         if (/^\d{9}$/.test(text)) {
             // Check if the first 2 digits equal the last 2 digits
-            text= text.toString();
+            text = text.toString();
             if (text.slice(0, 2) === text.slice(-2)) {
                 setMedId(text);
                 return true;
@@ -108,6 +110,13 @@ const ProfileFeed = () => {
             Alert.alert("Location not in jordan");
         }
     };
+    const inputFoucus = () => {
+        setIsFocused(true);
+    };
+
+    const inputBlur = () => {
+        setIsFocused(false);
+    };
 
     const handelNewProfileData = () => {
         if (
@@ -123,8 +132,8 @@ const ProfileFeed = () => {
                 userLastName: lastName,
                 userLocation: location,
                 userPassword: password,
-            })
-            setEditProfile(!editProfile)
+            });
+            setEditProfile(!editProfile);
             console.log(newProfileData);
         }
     };
@@ -142,7 +151,7 @@ const ProfileFeed = () => {
                                 editable={editProfile}
                                 style={styles.inputField}
                                 keyboardType="numeric"
-                                onChangeText={(text)=>setMedId(text)}
+                                onChangeText={(text) => setMedId(text)}
                                 value={medId}
                                 placeholder={medId.toString()}
                             />
@@ -222,7 +231,13 @@ const ProfileFeed = () => {
                                 editable={editProfile}
                                 value={confirmPass}
                                 onChangeText={(text) => setConfirmPass(text)}
-                                style={styles.inputField}
+                                onFocus={inputFoucus}
+                                onBlur={inputBlur}
+                                style={
+                                    isFocused
+                                        ? styles.inputFieldFocus
+                                        : styles.inputField
+                                }
                             />
                         </View>
                     </View>
@@ -240,7 +255,7 @@ const ProfileFeed = () => {
                         <TouchableOpacity
                             style={styles.btn}
                             onPress={() => {
-                                handelNewProfileData()
+                                handelNewProfileData();
                             }}>
                             <Text style={styles.btnText}>حفظ معلوماتي</Text>
                         </TouchableOpacity>
@@ -405,6 +420,16 @@ const styles = StyleSheet.create({
         textAlign: "right",
         marginBottom: 4,
         fontSize: 15,
+    },
+    inputFieldFocus: {
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        fontSize: 16,
+        backgroundColor: "#899BAB",
+        borderRadius: 8,
+        textAlign: "right",
+        marginVertical: 8,
+        marginBottom: 128,
     },
 });
 

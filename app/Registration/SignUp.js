@@ -11,6 +11,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { ScrollView } from "react-native";
+import { Redirect } from "expo-router";
 
 // object to be filled and sent to the backend
 // const SignUpForm = {
@@ -54,7 +55,7 @@ const SignUp = () => {
     const [password, setPassword] = useState("");
     const [showLink, setShowLink] = useState(false);
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [isFocused, setIsFocused] = useState(false)
+    const [isFocused, setIsFocused] = useState(false);
     const [signUpData, setSignUpData] = useState({
         userMedId: 0,
         userPhoneNumber: "",
@@ -65,13 +66,13 @@ const SignUp = () => {
     });
     const [path, setPath] = useState("/Registration/SignUp");
 
-    const inputFoucus=()=>{
-        setIsFocused(true)
-    }
+    const inputFoucus = () => {
+        setIsFocused(true);
+    };
 
-    const inputBlur = ()=>{
-        setIsFocused(false)
-    }
+    const inputBlur = () => {
+        setIsFocused(false);
+    };
 
     const checkMedId = (text) => {
         //nine gigit number
@@ -82,12 +83,15 @@ const SignUp = () => {
                 return true;
             } else {
                 Alert.alert(
-                    "Invalid MedID",
-                    "The first and last 2 digits must be the same."
+                    "رقم MedID غير صالح",
+                    "يجب أن تكون الرقمين الأولين والرقمين الأخيرين متطابقين."
                 );
             }
         } else {
-            Alert.alert("Invalid MedID", "MedID must be a 9-digit integer.");
+            Alert.alert(
+                "MedID غير صالح",
+                "يجب أن يكون رقم MedID مكونًا من 9 أرقام."
+            );
         }
     };
     const checkPassword = (text, confimration) => {
@@ -102,8 +106,8 @@ const SignUp = () => {
             return true;
         } else {
             Alert.alert(
-                "Invalid Password",
-                "Password must be at least 8 characters long, contain at least one uppercase letter, and can only contain letters and underscores."
+                "كلمة المرور غير صالحة",
+                "يجب أن تكون كلمة المرور على الأقل 8 أحرف، تحتوي على حرف كبير واحد على الأقل، ويمكن أن تحتوي فقط على الأحرف والشرطات السفلية."
             );
         }
     };
@@ -112,7 +116,7 @@ const SignUp = () => {
             setPhoneNumber(text);
             return true;
         } else {
-            Alert.alert("Invalid Phone Number", "Please try one more time");
+            Alert.alert("رقم الهاتف غير صالح", "الرجاء المحاولة مرة أخرى");
         }
     };
     const checkLocation = (text) => {
@@ -121,7 +125,7 @@ const SignUp = () => {
             setLocation(text);
             return true;
         } else {
-            Alert.alert("Location not in jordan");
+            Alert.alert("الموقع غير في الأردن");
         }
     };
 
@@ -222,28 +226,25 @@ const SignUp = () => {
                     <Text style={styles.text}>تأكيد كلمة المرور</Text>
                     <TextInput
                         onFocus={inputFoucus}
-                        onBlur={inputBlur}                        
-                        style={isFocused?styles.inputFieldFocus: styles.inputField}
+                        onBlur={inputBlur}
+                        style={
+                            isFocused
+                                ? styles.inputFieldFocus
+                                : styles.inputField
+                        }
                         onChangeText={(text) => setConfirmPassword(text)}
                         secureTextEntry={true}
                         value={confirmPassword}
                     />
                 </View>
                 {showLink ? (
-                    <TouchableOpacity style={styles.btn}>
-                        <Link
-                            href={"/Registration/ConfirmAcc"}
-                            style={styles.btnText}>
-                            انشئ حسابي
-                        </Link>
-                    </TouchableOpacity>
+                    <Redirect href={"/Home/HomeFeed"} />
                 ) : (
                     <>
-                        <TouchableOpacity style={styles.btn} onPress={handelSignUp}>
-                            <Text
-                                style={styles.btnText}>
-                                انشئ حسابي
-                            </Text>
+                        <TouchableOpacity
+                            style={styles.btn}
+                            onPress={handelSignUp}>
+                            <Text style={styles.btnText}>انشئ حسابي</Text>
                         </TouchableOpacity>
                     </>
                 )}
@@ -297,7 +298,7 @@ const styles = StyleSheet.create({
     subLinkText: {
         fontSize: 14,
         color: "#005F86",
-        textAlign:"right"
+        textAlign: "right",
     },
     inputField: {
         paddingHorizontal: 16,
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         textAlign: "right",
         marginVertical: 8,
-        marginBottom:128
+        marginBottom: 128,
     },
 });
 

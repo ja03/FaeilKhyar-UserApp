@@ -11,7 +11,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { ScrollView } from "react-native";
-
+import { Redirect } from "expo-router";
 // this object will save the user log in information then send it to the backednd to check it
 const LoginForm = {
     userMedId: 0,
@@ -36,12 +36,15 @@ const LogIn = () => {
                 return true;
             } else {
                 Alert.alert(
-                    "Invalid MedID",
-                    "The first and last 2 digits must be the same."
+                    "رقم MedID غير صالح",
+                    "يجب أن تكون الرقمين الأولين والرقمين الأخيرين متطابقين."
                 );
             }
         } else {
-            Alert.alert("Invalid MedID", "MedID must be a 9-digit integer.");
+            Alert.alert(
+                "رقم MedID غير صالح",
+                "يجب أن يكون رقم MedID عبارة عن عدد صحيح مكون من 9 أرقام."
+            );
         }
     };
 
@@ -56,8 +59,8 @@ const LogIn = () => {
             return true;
         } else {
             Alert.alert(
-                "Invalid Password",
-                "Password must be at least 8 characters long, contain at least one uppercase letter, and can only contain letters and underscores."
+                "كلمة المرور غير صالحة",
+                "يجب أن تكون كلمة المرور على الأقل 8 أحرف، تحتوي على حرف كبير واحد على الأقل، ويمكن أن تحتوي فقط على الأحرف والشرطات السفلية."
             );
         }
     };
@@ -71,7 +74,6 @@ const LogIn = () => {
                 userPassword: password,
             });
             setShowLink(true);
-            console.log("Path changed");
         }
 
         console.log(logInData);
@@ -129,11 +131,7 @@ const LogIn = () => {
                     </Link>
                 </View>
                 {showLink ? (
-                    <TouchableOpacity style={styles.btn}>
-                        <Link href={"/Home/HomeFeed"} style={styles.btnText}>
-                            تسجيل دخول
-                        </Link>
-                    </TouchableOpacity>
+                    <Redirect href={"/Home/HomeFeed"} />
                 ) : (
                     <>
                         <TouchableOpacity
@@ -193,7 +191,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: "#005F86",
         textAlign: "right",
-        marginVertical:8
+        marginVertical: 8,
     },
     inputField: {
         paddingHorizontal: 16,

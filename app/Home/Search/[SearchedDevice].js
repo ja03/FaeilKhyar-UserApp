@@ -13,11 +13,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { Redirect } from "expo-router";
 
 const SearchedDevice = () => {
     const local = useLocalSearchParams();
     const [userMedId, setUserMedId] = useState(0);
-    const [path, setPath] = useState("/Home/Search/[SearchedDevice]");
+    const [showLink, setShowLink] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
     const checkMedId = (text) => {
         //nine gigit number
         if (/^\d{9}$/.test(text)) {
@@ -27,18 +29,29 @@ const SearchedDevice = () => {
                 return true;
             } else {
                 Alert.alert(
-                    "Invalid MedID",
-                    "The first and last 2 digits must be the same."
+                    "رقم MedID غير صالح",
+                    "يجب أن تكون الرقمين الأولين والرقمين الأخيرين متطابقين."
                 );
             }
         } else {
-            Alert.alert("Invalid MedID", "MedID must be a 9-digit integer.");
+            Alert.alert(
+                "رقم MedID غير صالح",
+                "يجب أن يكون رقم MedID عبارة عن عدد صحيح مكون من 9 أرقام."
+            );
         }
     };
     const handelRequest = () => {
-        if (checkMedId(userMedId)) {
-            setPath("/Home/Search/RequestConfirmation");
+        const userMEdId = checkMedId(userMedId);
+        if (userMedId) {
+            setShowLink(true);
         }
+    };
+    const inputFoucus = () => {
+        setIsFocused(true);
+    };
+
+    const inputBlur = () => {
+        setIsFocused(false);
     };
     return (
         <SafeAreaView style={styles.container}>
@@ -77,7 +90,13 @@ const SearchedDevice = () => {
                         يرجى ادخال رفم الهوية الطبية
                     </Text>
                     <TextInput
-                        style={styles.inputField}
+                        onFocus={inputFoucus}
+                        onBlur={inputBlur}
+                        style={
+                            isFocused
+                                ? styles.inputFieldFocus
+                                : styles.inputField
+                        }
                         keyboardType="numeric"
                         onChangeText={(text) => setUserMedId(text)}
                         value={userMedId}
@@ -91,16 +110,25 @@ const SearchedDevice = () => {
                         يجب أن يكون عبارة عن عدد مكون من 9 أرقام. يجب أن تتساوى
                         الرقمين الأولين والرقمين الأخيرين في الرقم الطبي
                     </Text>
-                    <TouchableOpacity
-                        style={styles.btn2}
-                        onPress={handelRequest}>
-                        <Link href={path}>
-                            <Text
-                                style={{ color: "#fff", textAlign: "center" }}>
-                                طلب الجهاز
-                            </Text>
-                        </Link>
-                    </TouchableOpacity>
+                    {showLink ? (
+                        <Redirect href={"/Home/HomeFeed"} />
+                    ) : (
+                        <>
+                            <TouchableOpacity
+                                style={styles.btn2}
+                                onPress={handelRequest}>
+                                <Text>
+                                    <Text
+                                        style={{
+                                            color: "#fff",
+                                            textAlign: "center",
+                                        }}>
+                                        طلب الجهاز
+                                    </Text>
+                                </Text>
+                            </TouchableOpacity>
+                        </>
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -173,6 +201,16 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         textAlign: "right",
         marginVertical: 8,
+    },
+    inputFieldFocus: {
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        fontSize: 16,
+        backgroundColor: "#899BAB",
+        borderRadius: 8,
+        textAlign: "right",
+        marginVertical: 8,
+        marginBottom: 128,
     },
 });
 export default SearchedDevice;

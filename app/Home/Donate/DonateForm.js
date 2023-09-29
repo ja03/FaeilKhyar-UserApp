@@ -14,6 +14,7 @@ import { SafeAreaView, useSafeAreaFrame } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import { ScrollView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
+import { Redirect } from "expo-router";
 
 const DonateForm = () => {
     const local = useLocalSearchParams();
@@ -310,13 +311,7 @@ const DonateForm = () => {
                     </TouchableOpacity>
                 </View>
                 {showLink ? (
-                    <TouchableOpacity style={styles.btn}>
-                        <Link
-                            href={"/Home/Donate/DonateConfirmation"}
-                            style={styles.btnText}>
-                            تبرع بالجهاز
-                        </Link>
-                    </TouchableOpacity>
+                    <Redirect href={"/Home/Donate/DonateConfirmation"} />
                 ) : (
                     <>
                         <TouchableOpacity

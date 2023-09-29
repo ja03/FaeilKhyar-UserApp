@@ -11,8 +11,7 @@ import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import { ScrollView } from "react-native";
-import { styleProps } from "react-native-web/dist/cjs/modules/forwardedProps";
-
+import { Redirect } from "expo-router";
 //data from the backend
 const OTP = {
     OTPcode: 1234,
@@ -27,7 +26,7 @@ const ForgetPass = () => {
             console.log("confirmed");
             setShowLink(true);
         } else {
-            Alert.alert("Invalid code", "please try again");
+            Alert.alert("رمز غير صالح", "يرجى المحاولة مرة أخرى");
         }
     };
     return (
@@ -48,17 +47,11 @@ const ForgetPass = () => {
                 />
             </View>
             {showLink ? (
-                <TouchableOpacity style={styles.btn}>
-                    <Link href={'/Registration/NewPass'} style={styles.btnText}>
-                        تأكيد الرقم
-                    </Link>
-                </TouchableOpacity>
+                <Redirect href={"/Registration/NewPass"} />
             ) : (
                 <>
                     <TouchableOpacity style={styles.btn} onPress={handelOTP}>
-                        <Text style={styles.btnText}>
-                            تأكيد الرقم
-                        </Text>
+                        <Text style={styles.btnText}>تأكيد الرقم</Text>
                     </TouchableOpacity>
                 </>
             )}
