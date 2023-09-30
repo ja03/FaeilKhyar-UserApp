@@ -89,6 +89,7 @@ const SearchFeed = () => {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
+                        flex: 1,
                     }}>
                     <Link
                         href={{

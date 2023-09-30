@@ -132,7 +132,12 @@ const HomeFeed = () => {
                     }}
                     showsHorizontalScrollIndicator={false}>
                     {FeaturedDonations.map((donation) => (
-                        <View style={{ marginRight: 24, marginVertical: 12 }}>
+                        <View
+                            style={{
+                                marginRight: 24,
+                                marginVertical: 12,
+                                height: 220,
+                            }}>
                             <Link
                                 style={{ width: 162, height: 200 }}
                                 href={{
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         display: "flex",
         flexDirection: "column",
-        // flex:1,
+        // flex: 1,
         paddingBottom: 72,
         textAlign: "right",
         backgroundColor: "#FFF",
