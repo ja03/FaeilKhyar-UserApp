@@ -57,7 +57,10 @@ const SearchedDevice = () => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <View style={styles.imgContainer}>
-                    <Image source={local.searchImg} />
+                    <Image
+                        source={local.searchImg}
+                        style={{ width: "100%", height: 300 }}
+                    />
                 </View>
                 <View>
                     {/* Device Info */}
@@ -152,6 +155,8 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         marginTop: 12,
+        width: "100%",
+        height: 300,
     },
     headerText: {
         textAlign: "right",

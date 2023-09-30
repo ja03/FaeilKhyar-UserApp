@@ -18,42 +18,12 @@ const notifications = [
             "تم قبول طلب التبرع الخاص بك من قبل {hospital name} يرجى مراجعة المستشفى لاتمام عملية التبرع موقعنا {Hospital location} يرجى اظهار رمز الQR للموظف لاتمام عملية التبرع ",
         hospitalQRcode: require("../../../assets/imgs/QRcode.png"),
     },
-    {
-        id: 2,
-        deviceImg: require("../../../assets/imgs/device-img.png"),
-        deviceType: "كرسي متحرك",
-        donnerLocation: "عمان, الدوار السابع",
-        hospitalName: "مستشفى الامير حمزة",
-        hospitalMessage:
-            "تم قبول طلب التبرع الخاص بك من قبل {hospital name} يرجى مراجعة المستشفى لاتمام عملية التبرع موقعنا {Hospital location} يرجى اظهار رمز الQR للموظف لاتمام عملية التبرع ",
-        hospitalQRcode: require("../../../assets/imgs/QRcode.png"),
-    },
-    {
-        id: 3,
-        deviceImg: require("../../../assets/imgs/device-img.png"),
-        deviceType: "كرسي متحرك",
-        donnerLocation: "عمان, الدوار السابع",
-        hospitalName: "مستشفى الامير حمزة",
-        hospitalMessage:
-            "تم قبول طلب التبرع الخاص بك من قبل {hospital name} يرجى مراجعة المستشفى لاتمام عملية التبرع موقعنا {Hospital location} يرجى اظهار رمز الQR للموظف لاتمام عملية التبرع ",
-        hospitalQRcode: require("../../../assets/imgs/QRcode.png"),
-    },
-    {
-        id: 4,
-        deviceImg: require("../../../assets/imgs/device-img.png"),
-        deviceType: "كرسي متحرك",
-        donnerLocation: "عمان, الدوار السابع",
-        hospitalName: "مستشفى الامير حمزة",
-        hospitalMessage:
-            "تم قبول طلب التبرع الخاص بك من قبل {hospital name} يرجى مراجعة المستشفى لاتمام عملية التبرع موقعنا {Hospital location} يرجى اظهار رمز الQR للموظف لاتمام عملية التبرع ",
-        hospitalQRcode: require("../../../assets/imgs/QRcode.png"),
-    },
 ];
 
 const NotificationFeed = () => {
     const renderNotificationCards = ({ item }) => {
         return (
-            <View style={{alignItems:"center"}}>
+            <View style={{ alignItems: "center" }}>
                 <Link
                     onPress={() => {
                         console.log("clicked!");

@@ -42,8 +42,12 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.4,
         shadowRadius: 10,
         height: 220,
+        flexDirection: "column",
+        alignItems: "flex-end",
+        // overflow: "hidden",
     },
     textContainer: {
+        width: "100%",
         textAlign: "right",
         flexDirection: "column",
         alignItems: "flex-end",
