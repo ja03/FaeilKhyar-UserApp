@@ -1,4 +1,4 @@
-# Faeil Khayr Dashboard Application
+# Faeil Khayr User Application
 ![App Demo](./assets/imgs/App-img.png)
 
 # Description
